@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToDo.MainPage">
+
+    <StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label VerticalTextAlignment="Center"
+                   FontSize="Large">
+                Задача:
+            </Label>
+            <Entry HorizontalOptions="FillAndExpand"
+                   Placeholder="Введите название задачи"
+                   x:Name="Input"/>
+            <Button HorizontalOptions="EndAndExpand"
+                    HeightRequest="30"
+                    Text="+"
+                    FontSize="Large"
+                    TextColor="LimeGreen"
+                    WidthRequest="45"
+                    Command="{Binding AddTask}"
+                    CommandParameter="{Binding Source={x:Reference Name=Input}, Path=Text}"/>
+        </StackLayout>
+        <ListView ItemsSource="{Binding Tasks}"
+                  SelectedItem="{Binding SelectedTask}"
+                  x:Name="Tasks">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding Check}"/>
+                        <Label Text="{Binding Text}"
+                                VerticalTextAlignment="Center"/>
+                        <Button WidthRequest="45"
+                                Text="X"
+                                FontSize="Large"
+                                TextColor="Red"
+                                HorizontalOptions="EndAndExpand"
+                                Command="{Binding DeleteTask}"
+                                CommandParameter="{Binding Source={x:Reference Name=Tasks}, Path=SelectedItem}"/>
+                    </StackLayout>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</ContentPage>
