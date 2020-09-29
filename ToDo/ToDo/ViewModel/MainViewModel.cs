@@ -12,14 +12,25 @@ namespace ToDo.ViewModel
         {
             Tasks = new ObservableCollection<Task>()
             {   
-                new Task { Text = "privet", Check = true}
+                new Task { Text = "privet", Check = true},
+                new Task { Text = "123sad", Check = true},
+                new Task { Text = "dasd", Check = false},
+                new Task { Text = "pri4141vet", Check = false},
+                new Task { Text = "priasdascvet", Check = false},
+                new Task { Text = "asdasdasdasdasdasdasdasdasdas", Check = true}
             };
         }
         private Task _selectedTask;
+        private string _text;
         public Task SelectedTask
         {
             get { return _selectedTask; }
             set { _selectedTask = value; OnPropertyChanged(nameof(SelectedTask)); }
+        }
+        public string Text
+        {
+            get { return _text; }
+            set { _text = value; OnPropertyChanged(nameof(Text)); }
         }
         private ICommand _addTask;
         private ICommand _deleteTask;
@@ -33,6 +44,7 @@ namespace ToDo.ViewModel
             task.Text = str;
             task.Check = false;
             Tasks.Add(task);
+            Text = "";
         }
         private bool AddTaskCanExecute(string str)
         {

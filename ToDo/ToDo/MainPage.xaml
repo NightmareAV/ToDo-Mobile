@@ -4,7 +4,7 @@
              x:Class="ToDo.MainPage">
 
     <StackLayout>
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" Margin="7">
             <Label VerticalTextAlignment="Center"
                    FontSize="Large">
                 Задача:
@@ -15,7 +15,6 @@
             <Button HorizontalOptions="EndAndExpand"
                     HeightRequest="30"
                     Text="+"
-                    FontSize="Large"
                     TextColor="LimeGreen"
                     WidthRequest="45"
                     Command="{Binding AddTask}"
@@ -23,21 +22,23 @@
         </StackLayout>
         <ListView ItemsSource="{Binding Tasks}"
                   SelectedItem="{Binding SelectedTask}"
-                  x:Name="Tasks">
+                  x:Name="Tasks"
+                  Margin="7">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Orientation="Horizontal">
-                        <CheckBox IsChecked="{Binding Check}"/>
-                        <Label Text="{Binding Text}"
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <CheckBox IsChecked="{Binding Check}"/>
+                            <Label Text="{Binding Text}"
                                 VerticalTextAlignment="Center"/>
-                        <Button WidthRequest="45"
+                            <Button WidthRequest="45"
                                 Text="X"
-                                FontSize="Large"
                                 TextColor="Red"
                                 HorizontalOptions="EndAndExpand"
                                 Command="{Binding DeleteTask}"
                                 CommandParameter="{Binding Source={x:Reference Name=Tasks}, Path=SelectedItem}"/>
-                    </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
