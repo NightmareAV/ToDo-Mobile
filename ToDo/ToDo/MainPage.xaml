@@ -1,16 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ToDo.MainPage">
+             x:Class="ToDo.MainPage"
+             x:Name="MyPage">
 
     <StackLayout>
         <StackLayout Orientation="Horizontal" Margin="7">
             <Label VerticalTextAlignment="Center"
-                   FontSize="Large">
+                   Margin="1">
                 Задача:
             </Label>
             <Entry HorizontalOptions="FillAndExpand"
                    Placeholder="Введите название задачи"
+                   Text="{Binding Text}"
                    x:Name="Input"/>
             <Button HorizontalOptions="EndAndExpand"
                     HeightRequest="30"
@@ -28,15 +30,24 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
-                            <CheckBox IsChecked="{Binding Check}"/>
+                            <CheckBox x:Name="checkBox"/>
                             <Label Text="{Binding Text}"
-                                VerticalTextAlignment="Center"/>
+                                   VerticalTextAlignment="Center">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding Source={x:Reference checkBox}, Path=IsChecked}"
+                                                 Value="true">
+                                        <Setter Property="TextDecorations"
+                                                Value="Strikethrough" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
                             <Button WidthRequest="45"
                                 Text="X"
                                 TextColor="Red"
                                 HorizontalOptions="EndAndExpand"
-                                Command="{Binding DeleteTask}"
-                                CommandParameter="{Binding Source={x:Reference Name=Tasks}, Path=SelectedItem}"/>
+                                Command="{Binding DeleteTask}"              
+                                CommandParameter="{Binding Source={RelativeSource AncestorType={x:Type ListView}, AncestorLevel=1}, Path=SelectedItem}"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

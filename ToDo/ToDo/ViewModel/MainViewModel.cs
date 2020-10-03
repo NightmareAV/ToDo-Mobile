@@ -40,9 +40,11 @@ namespace ToDo.ViewModel
         }
         private void AddTaskExecute(string str)
         {
-            Task task = new Task();
-            task.Text = str;
-            task.Check = false;
+            Task task = new Task
+            {
+                Text = str,
+                Check = false
+            };
             Tasks.Add(task);
             Text = "";
         }
